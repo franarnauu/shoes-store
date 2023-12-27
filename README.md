@@ -1,5 +1,8 @@
 # E-Commerce Zentiva Store (ReactJS)
 
+## GIF interfaz
+![Gif de la interfaz](src/assets/videos/Prueba-react.gif)
+
 ## Descripción
 
 Este proyecto constituye un E-Commerce en desarrollo, parte integral del curso de React JS de Coderhouse. Su propósito es la aplicación y comprensión de los conceptos fundamentales de React JS a través de la creación de un sistema de comercio electrónico interactivo y dinámico.
@@ -11,9 +14,6 @@ Este proyecto constituye un E-Commerce en desarrollo, parte integral del curso d
 - **Carrito de Compras:** Funcionalidad que permite agregar productos al carrito.
 - **Navegación:** Implementación de rutas para una experiencia de usuario fluida.
 - **Estilos Modernos:** Diseño atractivo y uso de bibliotecas como Chakra UI para lograr una interfaz moderna.
-
-## GIF interfaz
-
 
 ## Requisitos
 
