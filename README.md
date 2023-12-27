@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # E-Commerce Zentiva Store (ReactJS)
+=======
+# React + Vite
+>>>>>>> 6b13caf82a07dba7fec97cbe11d6d74614c0b416
 
 ## GIF interfaz
 ![Gif de la interfaz](src/assets/videos/Prueba-react.gif)
