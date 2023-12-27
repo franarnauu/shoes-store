@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import ItemList from './ItemList';
 import { useParams } from 'react-router-dom';
+import ItemDetail from './ItemDetail';
 
-const ItemListContainer = () => {
-    const { categoryId } = useParams();
-    const [filteredProducts, setFilteredProducts] = useState([]);
+const ItemDetailContainer = () => {
+    const { productId } = useParams();
+    const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const products = [
@@ -32,38 +32,43 @@ const ItemListContainer = () => {
 
 
     useEffect(() => {
-        const showProducts = new Promise((resolve) => {
-            // Simula una carga de datos asíncrona
-            setTimeout(() => {
-                resolve(products);
-            })
-        });
+        // Evitar llamadas recursivas innecesarias si el producto ya está cargado
+        if (product && product.id === parseInt(productId)) {
+            return;
+        }
 
-        showProducts
-            .then((result) => {
-                if (categoryId) {
-                    // Si hay una categoría, filtra los productos por categoría
-                    const filtered = result.filter((product) => product.category === categoryId);
-                    setFilteredProducts(filtered);
-                } else {
-                    // Si no hay categoría, muestra todos los productos
-                    setFilteredProducts(result);
-                }
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, [categoryId, products]);
+        // Establecer el estado de carga a true
+        setLoading(true);
+
+        // Simular una llamada a una API con un temporizador
+        const timer = setTimeout(() => {
+            const selectedProduct = products.find((p) => p.id === parseInt(productId));
+
+            if (selectedProduct) {
+                setProduct(selectedProduct);
+            } else {
+                console.error(`Product with ID ${productId} not found`);
+            }
+
+            // Establecer el estado de carga a false después de cargar el producto
+            setLoading(false);
+        }, 1000);
+
+        // Limpiar el temporizador al desmontar el componente o cuando cambie productId
+        return () => clearTimeout(timer);
+    }, [productId, products, product]);
 
     return (
         <div>
             {loading ? (
                 <p>Loading...</p>
+            ) : product ? (
+                <ItemDetail product={product} />
             ) : (
-                <ItemList products={filteredProducts} />
+                <p>No product found for the selected ID.</p>
             )}
         </div>
     );
 };
 
-export default ItemListContainer;
+export default ItemDetailContainer;

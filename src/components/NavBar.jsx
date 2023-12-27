@@ -1,36 +1,45 @@
 import React from 'react';
-import { Flex, Box, Spacer, Menu, MenuButton, MenuList, MenuItem, Image } from '@chakra-ui/react';
+import { Flex, Box, Spacer, Menu, MenuButton, MenuList, MenuItem, Image, Button } from '@chakra-ui/react';
 import CartWidget from './CartWidget';
+import { Link } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ itemCount }) => {
     return (
         <div>
             <Flex bg="black" alignItems="center" color="white">
                 <Box boxSize='100px'>
                     <Image src='/src/assets/images/logo.png' alt='Logo' sizes='100px' p={"10px"} />
                 </Box>
-                <Box p="4">
-                    Yankee Store
-                </Box>
+                <Link to={"/"}>
+                    <Box p="4">
+                        Zentiva Store
+                    </Box>
+                </Link>
                 <Spacer />
                 <Menu>
-                    <MenuButton>
-                        Categorías
+                    <Link to="/about"><Button bg="black" color="white" _hover={{ bg: 'gray' }} border='2px' borderRadius="10px" p="10px">About</Button></Link>
+                    <Spacer />
+                    <Link to="/contact"><Button bg="black" color="white" _hover={{ bg: 'gray' }} border='2px' borderRadius="10px" p="10px">Contact Us</Button></Link>
+                    <Spacer />
+                    <MenuButton bg="black" _hover={{ bg: 'gray' }} border='2px' borderRadius="10px" p="10px">
+                        Categories
                     </MenuButton>
                     <MenuList color="black">
-                        <MenuItem>Adidas</MenuItem>
-                        <MenuItem>Nike</MenuItem>
-                        <MenuItem>New Balance</MenuItem>
-                        <MenuItem>Vans</MenuItem>
+                        <Link to="/category/Nike"><MenuItem>Nike</MenuItem></Link>
+                        <Link to="/category/Adidas"><MenuItem>Adidas</MenuItem></Link>
+                        <Link to="/category/Vans"><MenuItem>Vans</MenuItem></Link>
+                        <Link to="/category/NewBalance"><MenuItem>New Balance</MenuItem></Link>
                     </MenuList>
                 </Menu>
                 <Spacer />
-                <Box p="4">
-                    <CartWidget />
-                </Box>
+                <Link to="/cart">
+                    <Box p="4">
+                        <CartWidget itemCount={itemCount} />
+                    </Box>
+                </Link>
             </Flex>
         </div>
     )
 }
 
-export default NavBar
+export default NavBar;
