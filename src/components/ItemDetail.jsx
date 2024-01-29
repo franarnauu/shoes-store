@@ -1,33 +1,49 @@
-import React from 'react';
+import React, { useContext, useState } from 'react'
 import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Center, Image } from '@chakra-ui/react';
 import ItemCount from './ItemCount';
-import { useParams } from 'react-router-dom';
+import { CartContext } from '../context/CartContext';
 
 const ItemDetail = ({ product }) => {
 
-    const { id } = useParams
+    const { cart, addToCart } = useContext(CartContext);
+    console.log(cart);
+
+    const [Count, setCount] = useState(1);
+
+    const restar = () => {
+        Count > 1 && setCount(Count - 1)
+    }
+
+    const add = () => {
+        setCount(Count + 1)
+    }
 
     return (
         <Center>
             <Card maxW='sm' m="30px" border="2px" borderColor='black' borderRadius="20px">
                 <CardBody>
                     <Image
-                        src={`../src/assets/images/${product.image}`}
-                        alt={product.title}
+                        src={product.Image}
+                        alt={product.Title}
                         borderRadius='lg'
                     />
                     <Stack mt='6' spacing='1'>
-                        <Heading size='md'>{product.title}</Heading>
-                        <Text>{product.description}</Text>
+                        <Heading size='md'>{product.Title}</Heading>
+                        <Text>{product.Description}</Text>
                         <Text color='blue.600' fontSize='2xl'>
-                            ${product.price}
+                            ${product.Price}
                         </Text>
                     </Stack>
                 </CardBody>
                 <Divider />
                 <CardFooter>
                     <ButtonGroup spacing='2'>
-                        <ItemCount />
+                        <ItemCount
+                            Count={Count}
+                            add={add}
+                            restar={restar}
+                            addToCart={() => { addToCart(product, Count) }}
+                        />
                     </ButtonGroup>
                 </CardFooter>
             </Card>

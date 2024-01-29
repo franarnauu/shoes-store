@@ -2,17 +2,20 @@ import React from 'react';
 import Item from './Item';
 import { Flex } from '@chakra-ui/react';
 
-const ItemList = ({ products }) => {
+const ItemList = ({ productos }) => {
+    console.log("Primer Producto en ItemList:", productos[0]);
+
+    // Verifica si productos está vacío o indefinido
+    if (!productos || productos.length === 0) {
+        return <div>There are no products available</div>;
+    }
+
     return (
         <Flex flexWrap="wrap" justifyContent="space-around">
-            {products.map((product) => (
+            {productos.map((product) => (
                 <Item
                     key={product.id}
-                    id={product.id}
-                    title={product.title}
-                    description={product.description}
-                    price={product.price}
-                    image={product.image}
+                    product={product}
                 />
             ))}
         </Flex>
@@ -20,5 +23,3 @@ const ItemList = ({ products }) => {
 };
 
 export default ItemList;
-
-
